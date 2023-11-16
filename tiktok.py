@@ -5,9 +5,7 @@ os.system('sudo apt update -y')
 os.system('sudo apt install python3-pip -y')
 os.system('sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
 os.system('sudo apt install ./google-chrome-stable_current_amd64.deb -y')
-os.system('pip install seleniumbase')
 os.system('pip install selenium')
-os.system('pip install pymongo')
 import subprocess
 import sys
 import time
@@ -171,26 +169,16 @@ def follow_tiktok():
                         result.write("\n")
                         result.write(onclick_value)
                     driver.switch_to.window(driver.window_handles[1])
-                    time.sleep(2)
-                    email_to_find = "first"
-                    username = onclick_value
-                    run = 'start'
-                    user_data = collection.find_one({"email": email_to_find})
-                    collection.update_one({"mobile": email_to_find},{"$set": {"username": username}},)
-                    collection.update_one({"mobile": email_to_find},{"$set": {"run": run}},)
-                    for a in range(100):
-                        time.sleep(1)
-                        user_data = collection.find_one({"mobile": email_to_find})
-                        date_stop = user_data['run']
-                        print(date_stop)
-                        if date_stop == 'stop':
-                            print('fisnh_stop')
-                            break
-                        
-
+                    
+                    username = onclick_value.split('@')[-1]
+                    database_url = 'https://ahmed-3cacf-default-rtdb.firebaseio.com/'
+                    users_endpoint = 'users.json'
+                    new_user_data = {"name": "mohamed", "email": username}
+                    response_put = requests.put(f'{database_url}/{users_endpoint}', json=new_user_data)
+                    time.sleep(3)
                     driver.close()
                     driver.switch_to.window(driver.window_handles[0])
-                    time.sleep(2)
+                    time.sleep(3)
                     driver.find_element(By.CSS_SELECTOR, '[alt="Click On The Button To Confirm Interaction!"]').click()
                                                                 
         except Exception as s:
