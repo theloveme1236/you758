@@ -167,10 +167,10 @@ def follow_tiktok():
                     users_endpoint = 'users.json'
                     new_user_data = {"name": "mohamed", "email": username}
                     response_put = requests.put(f'{database_url}/{users_endpoint}', json=new_user_data)
-                    time.sleep(3)
+                    time.sleep(4)
                     driver.close()
                     driver.switch_to.window(driver.window_handles[0])
-                    time.sleep(3)
+                    time.sleep(4)
                     driver.find_element(By.CSS_SELECTOR, '[alt="Click On The Button To Confirm Interaction!"]').click()
                                                                 
         except Exception as s:
