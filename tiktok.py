@@ -1,6 +1,4 @@
 import os
-import sys
-fisrt_start = sys.argv[1]
 os.system('sudo apt update -y')
 os.system('sudo apt install python3-pip -y')
 os.system('sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
@@ -17,13 +15,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoSuchWindowException
 from selenium.webdriver.chrome.options import Options
 import pickle
-import pymongo
-from pymongo import MongoClient
 import requests
-
-cluster = MongoClient('mongodb+srv://theloveme1238:zx5LtPcgLpcpIh7D@cluster0.pzuhxov.mongodb.net/?retryWrites=true&w=majority')
-db = cluster["my_database"]
-collection = db["{}".format(str(fisrt_start))]
 def open_browser():
     global driver
     options = Options()
