@@ -1,4 +1,6 @@
 import os
+import sys
+fisrt_start = sys.argv[1]
 os.system('sudo apt update -y')
 os.system('sudo apt install python3-pip -y')
 os.system('sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
@@ -14,6 +16,7 @@ import requests
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoSuchWindowException
 from selenium.webdriver.chrome.options import Options
+from datetime import datetime, timedelta
 import pickle
 import requests
 def open_browser():
@@ -164,10 +167,22 @@ def follow_tiktok():
                     
                     username = onclick_value.split('@')[-1]
                     database_url = 'https://ahmed-3cacf-default-rtdb.firebaseio.com/'
-                    users_endpoint = 'users.json'
+                    users_endpoint = fisrt_start
                     new_user_data = {"name": "mohamed", "email": username}
                     response_put = requests.put(f'{database_url}/{users_endpoint}', json=new_user_data)
-                    time.sleep(4)
+                    while True:
+                        try:
+                            time.sleep(1)
+                            response_get = requests.get(f'{database_url}/{users_endpoint}')
+                            
+                            user_data = response_get.json()
+                            email = user_data['email']
+                            print(email)
+                            if email == 'stop':
+                                print('stop')
+                                break
+                        except:
+                            pass
                     driver.close()
                     driver.switch_to.window(driver.window_handles[0])
                     time.sleep(4)
